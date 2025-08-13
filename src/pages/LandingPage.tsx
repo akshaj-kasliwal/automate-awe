@@ -2,10 +2,13 @@ import heroImage from "@/assets/hero-automation.jpg";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Star, Zap, Clock, Link2, AlertTriangle, Brain, Bot, Database, Code2 } from "lucide-react";
 import TrustStrip from "@/components/marketing/TrustStrip";
 import BackgroundPattern from "@/components/marketing/BackgroundPattern";
+import CalendlyModal from "@/components/marketing/CalendlyModal";
+import { CALENDLY_URL } from "@/config/marketing";
+import { Progress } from "@/components/ui/progress";
 
 const SEO = () => {
   useEffect(() => {
@@ -46,7 +49,7 @@ const SEO = () => {
   return null;
 };
 
-const Hero = () => {
+const Hero = ({ onBook }: { onBook: () => void }) => {
   const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const r = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - r.left) / r.width) * 100;
@@ -68,8 +71,8 @@ const Hero = () => {
             I help businesses streamline processes, connect tools, and deploy AI-powered solutions that save 10+ hours a week — without the tech overwhelm.
           </p>
           <div className="flex flex-wrap items-center gap-4">
-            <Button size="lg" variant="hero" className="hover-scale" asChild>
-              <a href="#book">Book Your Free Automation Audit</a>
+            <Button size="lg" variant="hero" className="hover-scale" onClick={onBook}>
+              Book Your Free Automation Audit
             </Button>
             <Button size="lg" variant="secondary" className="hover-scale" asChild>
               <a href="#checklist">Get My AI Workflow Checklist</a>
@@ -180,10 +183,10 @@ const CaseStudies = () => (
   </Section>
 );
 
-const CTA1 = () => (
+const CTA1 = ({ onBook }: { onBook: () => void }) => (
   <Section id="book" title="Ready to See What Automation Can Do for You?">
     <div className="flex flex-wrap gap-4">
-      <Button size="lg" variant="hero" className="hover-scale">Book My Free Automation Audit</Button>
+      <Button size="lg" variant="hero" className="hover-scale" onClick={onBook}>Book My Free Automation Audit</Button>
       <Button size="lg" variant="secondary" className="hover-scale" asChild>
         <a href="#checklist">Get the AI Workflow Checklist</a>
       </Button>
@@ -203,11 +206,29 @@ const About = () => (
     </div>
   </Section>
 );
+ 
+const Checklist = () => (
+  <Section id="checklist" title="AI Workflow Checklist" subtitle="Follow these steps to identify high-impact automation opportunities.">
+    <div className="grid md:grid-cols-2 gap-6">
+      <ul className="space-y-3">
+        <li>• Map your repetitive tasks (5-10 mins)</li>
+        <li>• Identify trigger points and tools</li>
+        <li>• Define desired outcomes</li>
+        <li>• Prioritize by impact (time saved × frequency)</li>
+      </ul>
+      <div className="p-6 rounded-lg border bg-card/60">
+        <p className="mb-3 text-sm text-muted-foreground">Your automation readiness</p>
+        <Progress value={70} aria-label="Automation readiness" />
+        <p className="mt-3 text-xs text-muted-foreground">Tip: Book a free audit — I’ll outline quick wins in 15 minutes.</p>
+      </div>
+    </div>
+  </Section>
+);
 
-const FinalCTA = () => (
+const FinalCTA = ({ onBook }: { onBook: () => void }) => (
   <Section title="Stop Wasting Hours on Work That Can Be Automated." subtitle="Let’s find your quick wins in a free, no-obligation Automation Audit.">
     <div className="flex flex-wrap gap-4">
-      <Button size="lg" variant="hero" className="hover-scale">Book My Free Automation Audit</Button>
+      <Button size="lg" variant="hero" className="hover-scale" onClick={onBook}>Book My Free Automation Audit</Button>
       <Button size="lg" variant="secondary" className="hover-scale" asChild>
         <a href="#checklist">Get the AI Workflow Checklist</a>
       </Button>
@@ -231,17 +252,21 @@ const Footer = () => (
 );
 
 const LandingPage = () => {
+  const [calendlyOpen, setCalendlyOpen] = useState(false);
+
   return (
     <main>
       <SEO />
-      <Hero />
+      <Hero onBook={() => setCalendlyOpen(true)} />
       <PainPoints />
       <Solutions />
-      <CTA1 />
+      <CTA1 onBook={() => setCalendlyOpen(true)} />
       <CaseStudies />
+      <Checklist />
       <About />
-      <FinalCTA />
+      <FinalCTA onBook={() => setCalendlyOpen(true)} />
       <Footer />
+      <CalendlyModal open={calendlyOpen} onOpenChange={setCalendlyOpen} url={CALENDLY_URL} />
     </main>
   );
 };

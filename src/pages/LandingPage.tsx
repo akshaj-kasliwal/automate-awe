@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useEffect } from "react";
+import { Star, Zap, Clock, Link2, AlertTriangle, Brain, Bot, Database, Code2 } from "lucide-react";
+import TrustStrip from "@/components/marketing/TrustStrip";
+import BackgroundPattern from "@/components/marketing/BackgroundPattern";
 
 const SEO = () => {
   useEffect(() => {
@@ -85,7 +88,7 @@ const Hero = () => {
 };
 
 const Section = ({ id, title, children, subtitle }: { id?: string; title: string; subtitle?: string; children: React.ReactNode }) => (
-  <section id={id} className="container mx-auto py-16 md:py-24">
+  <section id={id} className="container mx-auto py-16 md:py-24 animate-enter">
     <div className="max-w-3xl mb-10">
       <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
       {subtitle && (<p className="text-muted-foreground mt-3 text-lg">{subtitle}</p>)}
@@ -94,36 +97,47 @@ const Section = ({ id, title, children, subtitle }: { id?: string; title: string
   </section>
 );
 
-const PainPoints = () => (
-  <Section title="Still stuck doing repetitive work?">
-    <ul className="grid md:grid-cols-2 gap-6">
-      {[
-        "Spending hours each week on manual updates and follow-ups.",
-        "Data scattered across tools that don’t talk to each other.",
-        "Missed leads because follow-ups slip through the cracks.",
-        "Struggling to make AI work for your actual business needs.",
-      ].map((p) => (
-        <li key={p} className="p-6 rounded-lg border bg-card/60 backdrop-blur-sm">
-          <span className="inline-block">{p}</span>
-        </li>
-      ))}
-    </ul>
-  </Section>
-);
+const PainPoints = () => {
+  const points = [
+    { Icon: Clock, t: "Spending hours each week on manual updates and follow-ups." },
+    { Icon: Link2, t: "Data scattered across tools that don’t talk to each other." },
+    { Icon: AlertTriangle, t: "Missed leads because follow-ups slip through the cracks." },
+    { Icon: Brain, t: "Struggling to make AI work for your actual business needs." },
+  ];
+  return (
+    <Section title="Still stuck doing repetitive work?">
+      <ul className="grid md:grid-cols-2 gap-6">
+        {points.map(({ Icon, t }) => (
+          <li key={t} className="p-6 rounded-lg border bg-card/60 backdrop-blur-sm flex items-start gap-3 animate-enter">
+            <span className="mt-1 rounded-full bg-primary/10 text-primary p-2">
+              <Icon className="h-4 w-4" aria-hidden="true" />
+            </span>
+            <span className="inline-block">{t}</span>
+          </li>
+        ))}
+      </ul>
+    </Section>
+  );
+};
 
 const Solutions = () => (
   <Section title="Custom Automation & AI Integration — Built for You">
     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
       {[
-        { t: "Workflow Automation", d: "Connect tools like Google Sheets, CRMs, and email to run hands-free." },
-        { t: "AI Chatbots", d: "24/7 customer service and lead qualification." },
-        { t: "Data Integration", d: "APIs, Python scripts, Airtable, and beyond." },
-        { t: "Custom Coding", d: "VBA macros, code conversions, and unique business logic." },
+        { t: "Workflow Automation", d: "Connect tools like Google Sheets, CRMs, and email to run hands-free.", Icon: Zap },
+        { t: "AI Chatbots", d: "24/7 customer service and lead qualification.", Icon: Bot },
+        { t: "Data Integration", d: "APIs, Python scripts, Airtable, and beyond.", Icon: Database },
+        { t: "Custom Coding", d: "VBA macros, code conversions, and unique business logic.", Icon: Code2 },
       ].map((s) => (
-        <Card key={s.t} className="hover-scale">
-          <CardHeader>
-            <CardTitle>{s.t}</CardTitle>
-            <CardDescription>{s.d}</CardDescription>
+        <Card key={s.t} className="hover-scale animate-enter">
+          <CardHeader className="flex flex-row items-center gap-3">
+            <span className="rounded-md bg-accent/20 text-accent p-2">
+              <s.Icon className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div>
+              <CardTitle>{s.t}</CardTitle>
+              <CardDescription>{s.d}</CardDescription>
+            </div>
           </CardHeader>
         </Card>
       ))}
@@ -142,7 +156,7 @@ const CaseStudies = () => (
         { t: "Mega Web Scraper → Airtable", b: "Hours of manual scraping + uploading.", a: "Fully automated scraper feeding Airtable in minutes.", r: "Always dedicated and on time." },
         { t: "Jira Data Insights (Confidential)", b: "Raw Jira data, no usable insights.", a: "Automated reports for decision-making.", r: "Repeat client — confidential project." },
       ].map((c) => (
-        <Card key={c.t} className="relative overflow-hidden">
+        <Card key={c.t} className="relative overflow-hidden animate-enter">
           <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity bg-gradient-to-tr from-primary/10 to-accent/10" />
           <CardHeader>
             <CardTitle>{c.t}</CardTitle>
@@ -150,6 +164,14 @@ const CaseStudies = () => (
           </CardHeader>
           <CardContent>
             <p className="mb-3"><strong>After:</strong> {c.a}</p>
+            <div className="mb-2 flex items-center gap-1 text-primary">
+              <Star className="h-4 w-4 fill-current" aria-hidden="true" />
+              <Star className="h-4 w-4 fill-current" aria-hidden="true" />
+              <Star className="h-4 w-4 fill-current" aria-hidden="true" />
+              <Star className="h-4 w-4 fill-current" aria-hidden="true" />
+              <Star className="h-4 w-4 fill-current" aria-hidden="true" />
+              <span className="ml-2 text-xs text-muted-foreground">Verified client review</span>
+            </div>
             <p className="text-sm italic">“{c.r}” ⭐⭐⭐⭐⭐</p>
           </CardContent>
         </Card>

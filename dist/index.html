@@ -20,12 +20,13 @@
 
     <!-- Prevent flash of unstyled content -->
     <script>
-      // Immediately apply light theme before React loads
-      document.documentElement.classList.remove('dark');
-      document.body.classList.remove('dark');
-      
-      // Set CSS variables immediately
+      // Immediately apply light theme before React loads. Avoid touching document.body if it's not parsed yet.
       const root = document.documentElement;
+
+      // Remove dark class from root (documentElement is always available)
+      root.classList.remove('dark');
+
+      // Set CSS variables immediately on the root
       root.style.setProperty('--background', '0 0% 100%');
       root.style.setProperty('--foreground', '222.2 84% 4.9%');
       root.style.setProperty('--card', '0 0% 100%');
@@ -41,10 +42,22 @@
       root.style.setProperty('--border', '214.3 31.8% 91.4%');
       root.style.setProperty('--input', '214.3 31.8% 91.4%');
       root.style.setProperty('--ring', '258 90% 60%');
-      
-      // Set body styles immediately
-      document.body.style.backgroundColor = 'hsl(0 0% 100%)';
-      document.body.style.color = 'hsl(222.2 84% 4.9%)';
+
+      // Apply body-specific styles if body exists; otherwise wait until it's parsed
+      const applyBodyStyles = () => {
+        const body = document.body;
+        if (!body) return;
+        body.classList.remove('dark');
+        body.style.backgroundColor = 'hsl(0 0% 100%)';
+        body.style.color = 'hsl(222.2 84% 4.9%)';
+      };
+
+      if (document.body) {
+        applyBodyStyles();
+      } else {
+        // Use DOMContentLoaded so we don't block initial parsing, but still apply as soon as body exists
+        window.addEventListener('DOMContentLoaded', applyBodyStyles, { once: true });
+      }
     </script>
     <script type="module" crossorigin src="/automate-awe/assets/index-C_tUbF5z.js"></script>
     <link rel="stylesheet" crossorigin href="/automate-awe/assets/index-Dz3rNvz0.css">

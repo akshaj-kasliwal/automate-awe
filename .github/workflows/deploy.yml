@@ -26,9 +26,11 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npm run build
+      - name: Build for GitHub Pages
+        run: npm run build
         env:
           GITHUB_PAGES: true
+          NODE_ENV: production
 
       - name: Prepare artifact
         id: out

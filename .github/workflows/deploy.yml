@@ -27,6 +27,8 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+        env:
+          GITHUB_PAGES: true
 
       - name: Prepare artifact
         id: out

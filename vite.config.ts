@@ -1,9 +1,8 @@
 // vite.config.ts
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react-swc' // ← use the SWC plugin
 
 export default defineConfig({
   plugins: [react()],
-  // GitHub Pages serves under /automate-awe/
-  base: '/automate-awe/',
+  base: '/automate-awe/', // keep if deploying to GitHub Pages under /automate-awe/
 })

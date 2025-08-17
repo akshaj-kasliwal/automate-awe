@@ -7,7 +7,7 @@
     <meta name="description" content="Automate workflows with AI. Save 10+ hours weekly with custom automation, chatbots, and integrations. Book your free automation audit." />
     <meta name="author" content="Akshaj" />
 
-    <link rel="canonical" href="/automate-awe/" />
+    <link rel="canonical" href="/" />
 
     <meta property="og:title" content="AI Automation & Workflow Solutions" />
     <meta property="og:description" content="Streamline processes, connect tools, and deploy AI solutions. Free automation audit." />
@@ -20,13 +20,12 @@
 
     <!-- Prevent flash of unstyled content -->
     <script>
-      // Immediately apply light theme before React loads. Avoid touching document.body if it's not parsed yet.
+      // Apply theme safely before React loads: only touch documentElement (always available),
+      // and only manipulate document.body when it exists or after DOMContentLoaded.
       const root = document.documentElement;
-
-      // Remove dark class from root (documentElement is always available)
       root.classList.remove('dark');
 
-      // Set CSS variables immediately on the root
+      // Set CSS variables immediately on root so there's no FOUC
       root.style.setProperty('--background', '0 0% 100%');
       root.style.setProperty('--foreground', '222.2 84% 4.9%');
       root.style.setProperty('--card', '0 0% 100%');
@@ -43,7 +42,6 @@
       root.style.setProperty('--input', '214.3 31.8% 91.4%');
       root.style.setProperty('--ring', '258 90% 60%');
 
-      // Apply body-specific styles if body exists; otherwise wait until it's parsed
       const applyBodyStyles = () => {
         const body = document.body;
         if (!body) return;
@@ -55,14 +53,13 @@
       if (document.body) {
         applyBodyStyles();
       } else {
-        // Use DOMContentLoaded so we don't block initial parsing, but still apply as soon as body exists
         window.addEventListener('DOMContentLoaded', applyBodyStyles, { once: true });
       }
     </script>
-    <script type="module" crossorigin src="/automate-awe/assets/index-C_tUbF5z.js"></script>
-    <link rel="stylesheet" crossorigin href="/automate-awe/assets/index-Dz3rNvz0.css">
   </head>
+
   <body>
     <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -11,9 +11,7 @@ const queryClient = new QueryClient();
 
 const App = () => {
   useEffect(() => {
-    // Ensure light theme is applied on mount
-    document.documentElement.classList.remove('dark');
-    document.body.classList.remove('dark');
+
     
     // Set light theme CSS variables
     const root = document.documentElement;

@@ -59,6 +59,13 @@ const Hero = ({ onBook }: { onBook: () => void }) => {
     e.currentTarget.style.setProperty("--y", `${y}%`);
   };
 
+  const scrollToChecklist = () => {
+    const element = document.getElementById('checklist');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header onMouseMove={handleMouseMove} className="relative isolate overflow-hidden tech-grid">
       <div className="container mx-auto grid lg:grid-cols-2 gap-10 py-20 md:py-28">
@@ -75,8 +82,8 @@ const Hero = ({ onBook }: { onBook: () => void }) => {
             <Button size="lg" className="btn-tech hover-scale" onClick={onBook} style={{ color: 'white' }}>
               Book Your Free Automation Audit
             </Button>
-            <Button size="lg" variant="secondary" className="hover-lift glow-border" asChild style={{ color: 'hsl(222.2 84% 4.9%)' }}>
-              <a href="#checklist">Get My AI Workflow Checklist</a>
+            <Button size="lg" variant="secondary" className="hover-lift glow-border" onClick={scrollToChecklist} style={{ color: 'hsl(222.2 84% 4.9%)' }}>
+              Get My AI Workflow Checklist
             </Button>
           </div>
           <div className="flex items-center gap-4 text-sm" style={{ color: 'hsl(215.4 16.3% 46.9%)' }}>
@@ -331,16 +338,25 @@ const Checklist = ({ onBook }: { onBook: () => void }) => {
 );
 };
 
-const FinalCTA = ({ onBook }: { onBook: () => void }) => (
-  <Section title="Stop Wasting Hours on Work That Can Be Automated." subtitle="Let's find your quick wins in a free, no-obligation Automation Audit.">
-    <div className="flex flex-wrap gap-4">
-      <Button size="lg" className="btn-tech hover-scale" onClick={onBook} style={{ color: 'white' }}>Book My Free Automation Audit</Button>
-      <Button size="lg" variant="secondary" className="hover-lift glow-border" asChild style={{ color: 'hsl(222.2 84% 4.9%)' }}>
-        <a href="#checklist">Get the AI Workflow Checklist</a>
-      </Button>
-    </div>
-  </Section>
-);
+const FinalCTA = ({ onBook }: { onBook: () => void }) => {
+  const scrollToChecklist = () => {
+    const element = document.getElementById('checklist');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <Section title="Stop Wasting Hours on Work That Can Be Automated." subtitle="Let's find your quick wins in a free, no-obligation Automation Audit.">
+      <div className="flex flex-wrap gap-4">
+        <Button size="lg" className="btn-tech hover-scale" onClick={onBook} style={{ color: 'white' }}>Book My Free Automation Audit</Button>
+        <Button size="lg" variant="secondary" className="hover-lift glow-border" onClick={scrollToChecklist} style={{ color: 'hsl(222.2 84% 4.9%)' }}>
+          Get the AI Workflow Checklist
+        </Button>
+      </div>
+    </Section>
+  );
+};
 
 const Footer = () => (
   <footer className="border-t glass">

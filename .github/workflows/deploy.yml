@@ -10,6 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,20 +25,21 @@ jobs:
           node-version: 20
           cache: npm
 
-      # install deps and build
       - run: npm ci
       - run: npm run build
 
-      # determine output dir (Vite uses dist). Also add SPA fallback.
       - name: Prepare artifact
         id: out
         run: |
           OUT="dist"
-          if [ ! -d "$OUT" ]; then
-            echo "dist not found"; exit 1
-          fi
           cp "$OUT/index.html" "$OUT/404.html" || true
           echo "outdir=$OUT" >> $GITHUB_OUTPUT
+
+      - name: Verify build outputs
+        run: |
+          echo "Listing dist/"
+          ls -la dist || true
+          test -f dist/index.html || (echo "index.html missing in dist/"; exit 1)
 
       - uses: actions/upload-pages-artifact@v3
         with:

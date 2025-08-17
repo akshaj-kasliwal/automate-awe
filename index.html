@@ -1,29 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>AI Automation & Workflow Solutions | Free Audit</title>
-    <meta name="description" content="Automate workflows with AI. Save 10+ hours weekly with custom automation, chatbots, and integrations. Book your free automation audit." />
-    <meta name="author" content="Akshaj" />
+    <meta name="description" content="Automate workflows with AI. Save 10+ hours weekly with custom automation, chatbots, and integrations. Book your free automation audit.">
+    <meta name="author" content="Akshaj">
 
-    <link rel="canonical" href="/" />
+    <!-- Use an absolute canonical on GH Pages -->
+    <link rel="canonical" href="https://akshaj-kasliwal.github.io/automate-awe/" />
 
-    <meta property="og:title" content="AI Automation & Workflow Solutions" />
-    <meta property="og:description" content="Streamline processes, connect tools, and deploy AI solutions. Free automation audit." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/opengraph.png" />
+    <meta property="og:title" content="AI Automation & Workflow Solutions">
+    <meta property="og:description" content="Streamline processes, connect tools, and deploy AI solutions. Free automation audit.">
+    <meta property="og:type" content="website">
+    <!-- Point images to the project path on GH Pages or absolute URL -->
+    <meta property="og:image" content="https://akshaj-kasliwal.github.io/automate-awe/opengraph.png">
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="/opengraph.png" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@lovable_dev">
+    <meta name="twitter:image" content="https://akshaj-kasliwal.github.io/automate-awe/opengraph.png">
 
-    <!-- Prevent flash of unstyled content -->
+    <!-- Prevent FOUC / theme flash: do NOT touch body here -->
     <script>
-      // Immediately apply light theme before React loads
+      // Make sure we start in light theme before anything paints.
+      document.documentElement.classList.remove('dark');
 
-      
-      // Set CSS variables immediately
+      // If you really need to set CSS vars early, set them on :root only.
       const root = document.documentElement;
       root.style.setProperty('--background', '0 0% 100%');
       root.style.setProperty('--foreground', '222.2 84% 4.9%');
@@ -40,15 +45,20 @@
       root.style.setProperty('--border', '214.3 31.8% 91.4%');
       root.style.setProperty('--input', '214.3 31.8% 91.4%');
       root.style.setProperty('--ring', '258 90% 60%');
-      
-      // Set body styles immediately
-      document.body.style.backgroundColor = 'hsl(0 0% 100%)';
-      document.body.style.color = 'hsl(222.2 84% 4.9%)';
     </script>
   </head>
-
   <body>
     <div id="root"></div>
+    <!-- Dev: Vite serves /src/main.tsx. Prod: Vite rewrites this to /assets/*.js -->
     <script type="module" src="/src/main.tsx"></script>
+
+    <script>
+      // If you still want body-level tweaks, do them after DOM is ready.
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.style.backgroundColor = 'hsl(0 0% 100%)';
+        document.body.style.color = 'hsl(222.2 84% 4.9%)';
+        document.body.classList.remove('dark');
+      });
+    </script>
   </body>
 </html>

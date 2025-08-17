@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/automate-awe/', // keep for GitHub Pages project site; use '/' if root domain
+  base: process.env.NODE_ENV === 'production' ? '/automate-awe/' : '/',
   resolve: {
     alias: {
       '@': '/src',
